@@ -1,5 +1,8 @@
 FROM python:3.9-slim
 
+LABEL "Author"="PavelNedviga"
+LABEL "Project"="HomeTask"
+
 # add apache bench (ab) tool
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
