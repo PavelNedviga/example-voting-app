@@ -10,7 +10,7 @@
 
     - name: Make dir
       file:
-        path: /tmp/votingapp
+        path: /tmp/voapp
         state: directory
 
     - name: Create remote temp dir
