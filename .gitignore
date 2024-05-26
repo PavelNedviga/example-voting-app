@@ -5,3 +5,7 @@ obj/
 .vs/
 node_modules/
 /.idea/
+.vagrant/rgloader/loader.rb
+.vagrant/bundler/global.sol
+.vagrant/machines/appserver/virtualbox/vagrant_cwd
+example-voting-app.sln
