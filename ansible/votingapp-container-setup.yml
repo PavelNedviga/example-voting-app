@@ -10,18 +10,23 @@
 
     - name: Make dir
       file:
-        path: /tmp/votingapp
+        path: /tmp/voapp/seed-data
         state: directory
 
-    - name: Copy DC file
+    - name: Create remote temp dir
+      file:
+        path: /tmp/voapp
+        state: directory
+        mode: 0775
+
+    - name: Copy Docker Compose files
       template:
         src: templates/docker-compose.j2
-        dest: /tmp/votingapp/docker-compose.yml
+        dest: /tmp/voapp/docker-compose.yml
         force: yes
 
     - name: Stop all docker containers
-      shell:
-        cmd: docker stop $(docker ps -q)
+      shell: "docker stop $(docker ps -q) | xargs -r docker stop"
       ignore_errors: true
       tags:
         - docker-cleanup
@@ -35,11 +40,11 @@
     - name: Setup with docker-compose
       shell:
         cmd: docker-compose up -d
-        chdir: /tmp/votingapp
+        chdir: /tmp/voapp
       register: contdeploy
       tags:
         - container-setup
 
     - name: Display result
       debug:
-        msg: "Log from docker-compose: \n {{ contdeploy.stdout }}\n"
+        msg: "Log from docker-compose: \n {{ contdeploy }}\n"
